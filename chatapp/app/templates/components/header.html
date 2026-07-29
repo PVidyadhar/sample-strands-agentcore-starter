@@ -5,6 +5,15 @@
      is true for admins (show_admin_btn) or on admin pages (breadcrumbs set). -->
 {% set show_menu = show_admin_btn or breadcrumbs %}
 
+{# The header's inner row has to track the host page's content column, otherwise
+   it reads as a differently-sized band stacked on the body. Admin pages wrap
+   <main> in `max-w-7xl mx-auto`, so the cap below lines up. The chat page runs
+   its message list and compare lanes edge-to-edge inside #chat-main (same
+   px-3 sm:px-4 md:px-6 gutters as this header), where a 1280px cap leaves the
+   header inset from the body on any window wider than that. Full-bleed pages
+   pass header_full_width=true to drop the cap. #}
+{% set header_full_width = header_full_width if header_full_width is defined else false %}
+
 <style>
     /* Theme toggle icon visibility (pure CSS, no flash) */
     html[data-theme="dark"] .theme-icon-moon { display: none; }
@@ -33,7 +42,7 @@
 
 <header class="sticky top-0 z-40 px-3 sm:px-4 md:px-6 py-2 md:py-2.5 backdrop-blur-md"
         style="background: color-mix(in srgb, var(--header-bg) 88%, transparent); border-bottom: 1px solid var(--header-border);">
-    <div class="max-w-7xl mx-auto flex items-center justify-between gap-2">
+    <div class="{% if not header_full_width %}max-w-7xl mx-auto {% endif %}flex items-center justify-between gap-2">
         <!-- Title section -->
         <div class="min-w-0 shrink flex items-center gap-3">
             <!-- Logo (links to main chat page) -->

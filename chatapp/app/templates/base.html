@@ -584,22 +584,28 @@
             border-left-color: {{ primary_palette["500"] if primary_palette else "#8b5cf6" }};
             color: #94a3b8;
         }
-        [data-sidebar-theme="dark"] .markdown-content strong { color: #f1f5f9; }
+        /* IMPORTANT: sidebar dark-theme rules must be scoped to .memory-markdown,
+           never bare .markdown-content. data-sidebar-theme is mirrored onto <html>
+           for the pre-paint no-flash behavior, so a [data-sidebar-theme="dark"]
+           .markdown-content selector also matches every chat bubble on the page and
+           bleeds light-on-dark colors into light-mode chat. Sidebar memory content
+           always carries both classes (see sidebar.html renderers). */
+        [data-sidebar-theme="dark"] .memory-markdown strong { color: #f1f5f9; }
         /* Table headings/cells in the memory sidebar dark theme. The global table
            rules color text with the page-level --text / --text-muted vars, which are
            dark when the page theme is light - leaving the heading row nearly invisible
            on the dark sidebar. Re-map to the sidebar's own light-on-dark palette. */
-        [data-sidebar-theme="dark"] .markdown-content thead { background: rgba(255, 255, 255, 0.06); }
-        [data-sidebar-theme="dark"] .markdown-content th {
+        [data-sidebar-theme="dark"] .memory-markdown thead { background: rgba(255, 255, 255, 0.06); }
+        [data-sidebar-theme="dark"] .memory-markdown th {
             color: var(--sidebar-text);
             border-bottom-color: var(--sidebar-card-border);
         }
-        [data-sidebar-theme="dark"] .markdown-content td {
+        [data-sidebar-theme="dark"] .memory-markdown td {
             color: var(--sidebar-text-muted);
             border-bottom-color: var(--sidebar-card-border);
         }
-        [data-sidebar-theme="dark"] .markdown-content table { border-color: var(--sidebar-card-border); }
-        [data-sidebar-theme="dark"] .markdown-content tbody tr:hover { background: rgba(255, 255, 255, 0.04); }
+        [data-sidebar-theme="dark"] .memory-markdown table { border-color: var(--sidebar-card-border); }
+        [data-sidebar-theme="dark"] .memory-markdown tbody tr:hover { background: rgba(255, 255, 255, 0.04); }
 
         /* Line clamp for memory content */
         .line-clamp-4 {
