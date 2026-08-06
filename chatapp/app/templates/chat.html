@@ -106,6 +106,9 @@
         <!-- Header -->
         {% set show_admin_btn = is_admin %}
         {% set mode_toggle = true %}
+        {# Chat body is full-bleed inside #chat-main, so the header drops its
+           max-w-7xl cap and shares the same gutters. #}
+        {% set header_full_width = true %}
         {% include "components/header.html" %}
 
         <!-- Error display area -->
